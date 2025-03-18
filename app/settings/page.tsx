@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getPortfolio, savePortfolio } from '../services/portfolioService';
+import * as dataService from '../services/dataService';
 
 export default function SettingsPage() {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -10,14 +10,11 @@ export default function SettingsPage() {
   const handleResetData = () => {
     // Reset the portfolio data in localStorage
     const emptyPortfolio = {
-      funds: [],
-      totalInvestment: 0,
-      currentValue: 0,
-      profitLoss: 0,
-      profitLossPercentage: 0
+      members: [],
+      lastUpdated: new Date().toISOString()
     };
     
-    savePortfolio(emptyPortfolio);
+    dataService.savePortfolio(emptyPortfolio);
     setShowConfirmDialog(false);
     setResetSuccess(true);
     
